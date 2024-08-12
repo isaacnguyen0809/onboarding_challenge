@@ -52,7 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   @override
   void initState() {
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       end: positionOuter[1],
     ).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.decelerate,
+      curve: Curves.fastEaseInToSlowEaseOut,
     ));
 
     _animationInner = Tween<Offset>(
@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       end: positionInner[1],
     ).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.decelerate,
+      curve: Curves.fastEaseInToSlowEaseOut,
     ));
 
     super.initState();
@@ -128,7 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     end: positionOuter[page],
                   ).animate(CurvedAnimation(
                     parent: _animationController,
-                    curve: Curves.decelerate,
+                    curve: Curves.fastEaseInToSlowEaseOut,
                   ));
 
                   _animationInner = Tween<Offset>(
@@ -136,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     end: positionInner[page],
                   ).animate(CurvedAnimation(
                     parent: _animationController,
-                    curve: Curves.decelerate,
+                    curve: Curves.fastEaseInToSlowEaseOut,
                   ));
 
                   _currentPage = page;
