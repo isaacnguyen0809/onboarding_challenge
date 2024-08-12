@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding_challenge/circle_inner_painter.dart';
-import 'package:onboarding_challenge/circle_outer_painter.dart';
+import 'package:onboarding_challenge/circle_painter.dart';
 
 void main() => runApp(const MyApp());
 
@@ -62,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       end: positionOuter[1],
     ).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.easeInOut,
+      curve: Curves.decelerate,
     ));
 
     _animationInner = Tween<Offset>(
@@ -70,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
       end: positionInner[1],
     ).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.easeInOut,
+      curve: Curves.decelerate,
     ));
 
     super.initState();
@@ -86,7 +85,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: colors[_currentPage].$2,
       body: Column(
         children: [
           const SizedBox(height: 200),
@@ -95,9 +93,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
               Padding(
                 padding: const EdgeInsets.only(top: 80, left: 40),
                 child: CustomPaint(
-                  painter: CircleInnerPainter(
+                  painter: CirclePainter(
                     innerColor: colors[_currentPage].$1,
                     animation: _animationInner,
+                    initialSweepAngle: 220,
                   ),
                   child: const SizedBox(
                     width: 260,
@@ -106,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                 ),
               ),
               CustomPaint(
-                painter: CircleOuterPainter(
+                painter: CirclePainter(
                   innerColor: colors[_currentPage].$2,
                   animation: _animationOuter,
                 ),
@@ -129,7 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     end: positionOuter[page],
                   ).animate(CurvedAnimation(
                     parent: _animationController,
-                    curve: Curves.easeInOut,
+                    curve: Curves.decelerate,
                   ));
 
                   _animationInner = Tween<Offset>(
@@ -137,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     end: positionInner[page],
                   ).animate(CurvedAnimation(
                     parent: _animationController,
-                    curve: Curves.easeInOut,
+                    curve: Curves.decelerate,
                   ));
 
                   _currentPage = page;
@@ -177,7 +176,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
         onPressed: () {
           _pageController.nextPage(
             duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
+            curve: Curves.decelerate,
           );
         },
         child: const Icon(

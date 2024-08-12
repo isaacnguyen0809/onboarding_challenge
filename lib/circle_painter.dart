@@ -2,13 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class CircleInnerPainter extends CustomPainter {
-  CircleInnerPainter({
+class CirclePainter extends CustomPainter {
+  CirclePainter({
     required this.innerColor,
     required this.animation,
+    this.initialSweepAngle = 0,
   }) : super(repaint: animation);
 
   final Animation<Offset> animation;
+  final double initialSweepAngle;
 
   final Color innerColor;
   final outer = Paint()
@@ -28,17 +30,8 @@ class CircleInnerPainter extends CustomPainter {
       size.height / 2.0 + animation.value.dy,
     );
     final radius = size.width / 2;
-    drawDotOnCircle(
-      radius,
-      canvas,
-      c,
-      220,
-    );
-    canvas.drawCircle(
-      c,
-      radius + 2,
-      paintShadow,
-    );
+
+    canvas.drawCircle(c, radius + 2, paintShadow);
     canvas.drawCircle(c, radius, outer);
     canvas.drawCircle(
       c,
@@ -47,9 +40,11 @@ class CircleInnerPainter extends CustomPainter {
         ..color = innerColor.withOpacity(0.4)
         ..style = PaintingStyle.fill,
     );
+
+    drawSmallCircle(radius, canvas, c, 0 + initialSweepAngle);
   }
 
-  void drawDotOnCircle(
+  void drawSmallCircle(
     double radius,
     Canvas canvas,
     Offset center,
@@ -58,7 +53,7 @@ class CircleInnerPainter extends CustomPainter {
     const startAngle = 2.9;
     final dx = radius * cos(startAngle + (animation.value.dx * 5 + addSweepAngle) / 180 * pi);
     final dy = radius * sin(startAngle + (animation.value.dx * 5 + addSweepAngle) / 180 * pi);
-    final position = center + Offset(dx + 4, dy + 14);
+    final position = center + Offset(dx, dy);
 
     canvas.drawCircle(position, 10, paintShadow);
     canvas.drawCircle(position, 10, outer);
