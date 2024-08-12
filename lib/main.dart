@@ -114,8 +114,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                   height: 300,
                 ),
               ),
-
-              // Add more circles or animations here
             ],
           ),
           Flexible(

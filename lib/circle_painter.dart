@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class CirclePainter extends CustomPainter {
     ..color = Colors.grey.withOpacity(1)
     ..style = PaintingStyle.stroke
     ..strokeWidth = 8
-    ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 20);
+    ..maskFilter = MaskFilter.blur(BlurStyle.normal, Platform.isAndroid ? 20 : 100);
 
   @override
   void paint(Canvas canvas, Size size) {
